@@ -5,27 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Совместное Судоку</title>
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./adaptive.css" />
   </head>
   <body>
-    <button
-      id="themeToggle"
-      style="
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: var(--block-bg);
-        color: var(--text-dark);
-        cursor: pointer;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-      "
-    >
-      🌓
-    </button>
-    <h1>Совместное Судоку (Real-Time)</h1>
+    <div id="loginPopup">
+      <div class="popupContent">
+        <h1>Введите никнейм</h1>
+        <input type="text" id="nickname" placeholder="Ваш ник" />
+        <label for="color">Выберите цвет</label>
+        <input type="color" id="color" />
+        <button id="enterGame">Войти</button>
+      </div>
+    </div>
+    <button id="themeToggle" class="themeBtn">🌓</button>
 
     <select id="difficulty">
       <option value="easy">Лёгкая</option>
@@ -37,6 +29,11 @@
     <div id="board"></div>
 
     <div id="numberPad"></div>
+
+    <div id="playersList">
+      <h2>Игроки</h2>
+      <ul id="playersUl"></ul>
+    </div>
 
     <script src="logic.js"></script>
   </body>

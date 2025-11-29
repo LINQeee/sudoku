@@ -1,0 +1,170 @@
+/* --- Общие настройки --- */
+:root {
+  --cell: 48px;
+  --block: 51px;
+  --num-btn-width: 62px;
+  --num-btn-height: 82px;
+}
+
+/* --- Медиазапросы для мобильных устройств --- */
+@media (max-width: 520px) {
+  :root {
+    --cell: 32px;
+    --block: 35px;
+    --num-btn-width: 48px;
+    --num-btn-height: 64px;
+
+    --cell: 8vw;
+    --block: calc(var(--cell) + 3px);
+  }
+
+  body {
+    padding: 6px;
+  }
+
+  #board {
+    padding: 6px;
+    gap: 10px;
+  }
+
+  .block {
+    padding: 2px;
+  }
+
+  .cell {
+    font-size: 18px;
+  }
+
+  #numberPad {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .num-btn {
+    width: var(--num-btn-width);
+    height: var(--num-btn-height);
+    font-size: 18px;
+  }
+
+  #newGame,
+  #difficulty {
+    width: 45%;
+    font-size: 14px;
+    padding: 10px 18px;
+    max-width: unset;
+  }
+
+  #playersList {
+    width: 150px;
+    font-size: 12px;
+    padding: 12px;
+    margin-top: 20px;
+  }
+
+  #loginPopup .popupContent {
+    width: 90%;
+    padding: 24px;
+  }
+
+  #loginPopup input[type='text'] {
+    width: 100%;
+  }
+}
+
+/* --- Планшеты --- */
+@media (min-width: 521px) and (max-width: 900px) {
+  :root {
+    --cell: 42px;
+    --block: 45px;
+    --num-btn-width: 54px;
+    --num-btn-height: 72px;
+  }
+
+  #board {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .cell {
+    font-size: 20px;
+  }
+
+  #numberPad {
+    gap: 12px;
+  }
+
+  .num-btn {
+    width: var(--num-btn-width);
+    height: var(--num-btn-height);
+    font-size: 20px;
+  }
+
+  #newGame,
+  #difficulty {
+    width: 35%;
+    font-size: 15px;
+    padding: 11px 20px;
+  }
+
+  #playersList {
+    width: 180px;
+    font-size: 13px;
+    padding: 14px;
+  }
+}
+
+/* --- Десктоп --- */
+@media (min-width: 901px) {
+  :root {
+    --cell: 48px;
+    --block: 51px;
+    --num-btn-width: 62px;
+    --num-btn-height: 82px;
+  }
+
+  #board {
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .cell {
+    font-size: 22px;
+  }
+
+  .num-btn {
+    width: var(--num-btn-width);
+    height: var(--num-btn-height);
+  }
+
+  #newGame,
+  #difficulty {
+    width: 30%;
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+
+  #playersList {
+    width: 200px;
+    font-size: 14px;
+    padding: 16px;
+  }
+}
+
+/* --- Общая гибкость --- */
+#board,
+.block {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.num-btn span {
+  font-size: clamp(16px, 2vw, 22px);
+}
+
+.popupContent h1 {
+  font-size: clamp(18px, 4vw, 22px);
+}
+
+#playersList h2 {
+  font-size: clamp(14px, 2.5vw, 18px);
+}
