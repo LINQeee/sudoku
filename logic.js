@@ -10,13 +10,7 @@ let player
 initUI()
 
 async function connectToWs(nickname, color) {
-  let backendUrl
-  try {
-    await fetch('http://localhost:80/ping', { mode: 'no-cors' })
-    backendUrl = 'ws://localhost:80'
-  } catch {
-    backendUrl = 'wss://sudoku-backend-1e2y.onrender.com'
-  }
+  const backendUrl = new URLSearchParams(document.location.search).get('url')
 
   ws = new WebSocket(backendUrl)
 
@@ -28,6 +22,7 @@ async function connectToWs(nickname, color) {
     const data = JSON.parse(msg.data)
     if (data.type === 'state') {
       board = data.board
+      playersUl.innerHTML = ''
       data.players.forEach(addPlayer)
       renderBoard()
     }
@@ -36,10 +31,17 @@ async function connectToWs(nickname, color) {
       document.getElementById(data.nickname + data.color)?.remove()
     }
     if (data.type == 'new-player') {
+      console.log(data)
       addPlayer(data)
     }
-    if (data.type === 'update')
+    if (data.type === 'update') {
+      document
+        .getElementById(data.nickname + data.color)
+        .querySelector(
+          'span:last-child'
+        ).textContent = `${data.nickname} - ${data.count}`
       updateCell(data.row, data.col, data.value, data.correct, data.color)
+    }
   }
 }
 
@@ -51,7 +53,9 @@ function addPlayer(p) {
   dot.className = 'colorDot'
   dot.style.backgroundColor = p.color
   li.appendChild(dot)
-  li.appendChild(document.createTextNode(p.nickname))
+  const text = document.createElement('span')
+  text.textContent = `${p.nickname} - ${p.count}`
+  li.appendChild(text)
   playersUl.appendChild(li)
 }
 
@@ -71,11 +75,8 @@ function initUI() {
     const color = colorInput.value
     if (!nickname) return alert('Введите никнейм!')
 
-    localStorage.setItem('nickname', nickname)
-    localStorage.setItem('color', color)
-
     connectToWs(nickname, color)
-    player = { nickname, color }
+    player = { nickname, color, count: 0 }
     popup.style.display = 'none'
   })
 
@@ -105,7 +106,7 @@ function sendUpdate(r, c, v) {
       row: r,
       col: c,
       value: v,
-      color: player.color,
+      ...player,
     })
   )
 }
